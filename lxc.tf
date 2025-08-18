@@ -1,7 +1,7 @@
 resource "proxmox_lxc" "basic_container" {
-  target_node  = "codpartner"
-  hostname     = "terraform-lxc"
-  ostemplate   = "local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"  # Use correct templa
+  target_node  = "your node name"
+  hostname     = "your CT name "
+  ostemplate   = "local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"  # Use correct template
   vmid         = 200  # Unique ID for the container
   unprivileged = true
 
@@ -12,7 +12,7 @@ resource "proxmox_lxc" "basic_container" {
 
   // Root filesystem
   rootfs {
-    storage = "DATA"
+    storage = "your data storage"
     size    = "8G"
   }
 
@@ -21,7 +21,7 @@ resource "proxmox_lxc" "basic_container" {
     name   = "eth0"
     bridge = "vmbr0"
     ip     = "dhcp"  # or "10.0.0.100/24" for static IP
-#    gw     = "192.168.1.1"  # Only needed for static IP
+#    gw     = "192.168.0.0"  # Only needed for static IP
   }
 
   // Features
@@ -31,6 +31,5 @@ resource "proxmox_lxc" "basic_container" {
 
   // SSH access
   ssh_public_keys = <<-EOF
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICZRWPkR/Jl01SZU4CGCrunZ5ZvaStITcn2HHJTJ/u/u proxmox-production@cod.partners.com
   EOF
 }
